@@ -1,0 +1,103 @@
+@media only screen and (max-width: 900px) {
+    .sidebarButton {
+        width: 100px;
+    }
+    .MuiSvgIcon-root {
+        width: 0.7em;
+        height: 0.7em;
+    }
+   *{
+    font-size: 12px;
+   }
+   .rightbarFollowingImg {
+    width: 50px;
+    height: 50px;
+   
+}
+.rightbarTitle{
+    font-size: 15px;
+}
+.rightbarInfoItem {
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+    display: flex;
+}
+  }
+  @media only screen and (max-width: 700px) {
+    .sidebarButton {
+        width: 85px;
+       padding: 4px;
+    }
+    .sidebar {
+        flex: 0;
+        display: none;
+    }
+    .feed {
+        flex: 12 ;
+    }
+    .rightbar {
+        flex: 0;
+        display: none;
+       
+    }
+    .topbarCenter {
+        display: block;
+        
+        position: absolute;
+        top: 42px;
+      
+        padding: 20px;
+    }
+    .homeContainer {
+      
+        padding-top: 40px;
+    } 
+    .topbarContainer {
+        height: 80px;
+        padding-bottom: 30px;
+    }
+    .topbarRight {
+   
+        justify-content: right;
+       
+    }
+    .topbarlinks {
+        display: block;
+        
+        position: absolute;
+        top: 50px;
+      
+        padding: 20px;
+    }
+   
+  }
+  @media only screen and (max-width: 420px) {
+    .shareOptionText {
+        font-size: 12px;
+    }
+    .topbarlinks {
+        display: block;
+        position: absolute;
+        top: 40px;
+        left: 0;
+        padding: 20px;
+    }
+    .topbarCenter {
+        
+        top: 60px;
+        
+    }
+   
+   
+    .searchbar {
+        height: 26px;
+    }
+    .shareBottom {
+      
+        flex-wrap: wrap;
+    }
+    .homeContainer {
+        display: block;
+        width: 100%;
+    }
+  }
