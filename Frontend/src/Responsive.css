@@ -63,13 +63,6 @@
     }
     .topbarlinks {
         display: block;
-        
-        position: absolute;
-        top: 50px;
-      
-        padding: 20px;
-    }
-   
   }
   @media only screen and (max-width: 420px) {
     .shareOptionText {
