@@ -6,7 +6,7 @@ import { Users } from "../../dummyData";
 
 const Sidebar = () => {
     return (
-        <div className='sidebar'>
+        <div className='sidebar col-lg-3 '>
             <div className="sidebarWrapper">
                 <div className="sidebarList">
                     <ul>

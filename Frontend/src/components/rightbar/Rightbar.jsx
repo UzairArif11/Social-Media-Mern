@@ -75,10 +75,10 @@ const Rightbar = ({profile}) => {
     )
   }
   return (
-    <div className='rightbar'>
+    <div className='rightbar  col-lg-3 '>
 
       <div className="rightbarWrapper">
-      <ProfileRightbar/>
+   {profile?    <ProfileRightbar/>: <HomeRightbar />}
   
     </div></div>
   )

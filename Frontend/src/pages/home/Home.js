@@ -8,10 +8,12 @@ import Rightbar from '../../components/rightbar/Rightbar'
 const Home = () => {
   return (
     <> <Topbar/>
-    <div className="homeContainer">
-        <Sidebar/>
+    <div className="homeContainer container-fluid">
+       <div className="row">
+       <Sidebar/>
         <Feed/>
         <Rightbar/>
+       </div>
     </div>
     </>
   )
