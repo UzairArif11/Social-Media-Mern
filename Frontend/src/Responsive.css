@@ -23,7 +23,12 @@
     display: flex;
 }
   }
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 1000px) {
+  
+    .rightbarAd {
+        max-width: 100%;
+        width: auto;
+    }
    .topbarContainer{
     flex-wrap: wrap;
     height: fit-content;
