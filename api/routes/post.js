@@ -14,6 +14,6 @@ router.route('/:id').get(postController.getSinglePost)
 //get all  posts of user
 router.route('/user/all').get(postController.getAllPosts)
 //get all  posts of user and his friends
-router.route('/user/timeline').get(postController.timelinePost)
+router.route('/timeline/:userId').get(postController.timelinePost)
 
 module.exports = router

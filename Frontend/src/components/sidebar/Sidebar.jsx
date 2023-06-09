@@ -4,9 +4,10 @@ import { Bookmark, Group, HelpOutline, RssFeed, WorkOutline, Chat, School, PlayC
 import CloseFriend from '../closeFriend/CloseFriend';
 import { Users } from "../../dummyData";
 
-const Sidebar = () => {
+const Sidebar = ({className}) => {
+    console.log(className)
     return (
-        <div className='sidebar col-lg-3 '>
+        <div className={`sidebar ${className}`} >
             <div className="sidebarWrapper">
                 <div className="sidebarList">
                     <ul>
