@@ -3,8 +3,10 @@ import './rightbar.css'
 import { Users } from "../../dummyData";
 import Online from '../online/Online';
 const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-const Rightbar = ({profile} , {className}) => {
+const Rightbar = ({className ,user}  ) => {
+
   const HomeRightbar =()=>{
+  
     return(
       <>
               <div className={`birthdayContainer ${className}`}>
@@ -32,18 +34,23 @@ const Rightbar = ({profile} , {className}) => {
       <h4 className="rightbarTitle">User information</h4>
         <div className="rightbarInfoItem">
           <span className="rightbarInfoKey">City:</span>
-          <span className="rightbarInfoKeyVAlue">New York</span>
+          <span className="rightbarInfoKeyVAlue">{user.city}</span>
         </div>
      
         <div className="rightbarInfoItem">
           <span className="rightbarInfoKey">From:</span>
-          <span className="rightbarInfoKeyVAlue">Uzair</span>
+          <span className="rightbarInfoKeyVAlue">{user.from}</span>
         </div>
       
       
         <div className="rightbarInfoItem">
           <span className="rightbarInfoKey">Relationship:</span>
-          <span className="rightbarInfoKeyVAlue">Single</span>
+          <span className="rightbarInfoKeyVAlue">{user.relationship ===1
+          ?"Single"
+          : user.relationship ===2
+          ? "Married"
+          : "-"
+          }</span>
         
       </div>
       </div>
@@ -85,7 +92,7 @@ const Rightbar = ({profile} , {className}) => {
     <div className='rightbar  col-lg-3 '>
 
       <div className="rightbarWrapper">
-   {profile?    <ProfileRightbar/>: <HomeRightbar />}
+   {user?    <ProfileRightbar/>: <HomeRightbar />}
   
     </div></div>
   )

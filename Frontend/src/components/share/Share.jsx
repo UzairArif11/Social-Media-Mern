@@ -11,20 +11,20 @@ const Share = () => {
                 </div>
                 <hr className="shareHr" />
                 <div className="shareBottom">
-                    <div className="shareOptions">
-                        <div className="shareOption">
-                            <PermMedia htmlColor='tomato' className='shareIcon' />
+                    <div className="shareOptions flex-wrap ">
+                        <div className="shareOption py-2">
+                            <PermMedia htmlColor='tomato' className='shareIcon ' />
                             <span className="shareOptionText">Photo or Video </span>
                         </div>
-                        <div className="shareOption">
+                        <div className="shareOption py-2">
                             <Label htmlColor='blue' className='shareIcon' />
                             <span className="shareOptionText">Tag </span>
                         </div>
-                        <div className="shareOption">
+                        <div className="shareOption py-2">
                             <Room htmlColor='green' className='shareIcon' />
                             <span className="shareOptionText">Location </span>
                         </div>
-                        <div className="shareOption">
+                        <div className="shareOption py-2">
                             <EmojiEmotions htmlColor='goldenrod' className='shareIcon' />
                             <span className="shareOptionText">Feelings </span>
                         </div>

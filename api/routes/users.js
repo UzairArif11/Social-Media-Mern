@@ -6,7 +6,7 @@ router.route('/:id').put(userController.updateUser)
 //delete user
 router.route('/:id').delete(userController.deleteUser)
 //get a user
-router.route('/:id').get(userController.getUser)
+router.route('/').get(userController.getUser)
 //follow a user
 router.route('/:id/follow').put(userController.followUser)
 //unfollow a user

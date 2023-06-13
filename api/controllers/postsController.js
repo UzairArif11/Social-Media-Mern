@@ -67,7 +67,8 @@ exports.getSinglePost = async (req, res, next) => {
   };
   exports.getAllPosts = async (req, res, next) => {
     try {
-      const post = await Post.find({userId:req.body.userId});
+      const user = await User.findOne({ username: req.params.username});
+      const post = await Post.find({userId: user._id});
      
         res.status(200).json(post);
       

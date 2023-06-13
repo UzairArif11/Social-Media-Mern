@@ -5,7 +5,7 @@ import CloseFriend from '../closeFriend/CloseFriend';
 import { Users } from "../../dummyData";
 
 const Sidebar = ({className}) => {
-    console.log(className)
+  
     return (
         <div className={`sidebar ${className}`} >
             <div className="sidebarWrapper">

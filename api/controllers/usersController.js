@@ -40,7 +40,7 @@ exports.login = async (req, res, next) => {
   }
 };
 exports.updateUser = async (req, res, next) => {
-    if (req.body.userId === req.params.id || req.body.isAdmin) {
+    if (req.body._id === req.params.id || req.body.isAdmin) {
       if (req.body.password) {
         try {
           const salt = await bcrypt.genSalt(10);
@@ -76,9 +76,12 @@ exports.deleteUser = async (req, res, next) => {
     }
   };
 exports.getUser = async (req, res, next) => {
-  
+  const userId = req.query.userId;
+  const username = req.query.username;
         try {
-      const user = await User.findById(req.params.id);
+      const user = userId
+      ? await User.findById(userId)
+      : await User.findOne({username});
       const {password, updatedAt, ...other} = user._doc;
       res.status(200).json(other);
         } catch (error) {

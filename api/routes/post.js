@@ -12,7 +12,7 @@ router.route('/:id/like').put(postController.likePost)
 //get a post
 router.route('/:id').get(postController.getSinglePost)
 //get all  posts of user
-router.route('/user/all').get(postController.getAllPosts)
+router.route('/profile/:username').get(postController.getAllPosts)
 //get all  posts of user and his friends
 router.route('/timeline/:userId').get(postController.timelinePost)
 
