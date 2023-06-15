@@ -12,8 +12,9 @@ margin-bottom: 20px;
     position: relative;
 }
 .profileCoverImg{
-    width: 100%;
-    height: 250px;
+    min-width: 100%;
+    min-height: 250px;
+    object-fit: contain;
 }
 .profileUserImg{
     width: 150px;

@@ -22,7 +22,7 @@ const Login = () => {
        };
       try {
        await axios.post("/api/auth/register", user)
-       navigate.push("/")
+       navigate("/")
       } catch (error) {
         console.log(error)
       }
