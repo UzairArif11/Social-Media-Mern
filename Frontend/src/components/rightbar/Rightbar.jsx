@@ -11,40 +11,6 @@ import { Add, Remove } from '@material-ui/icons';
 const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
 const Rightbar = ({className ,user}  ) => {
-const [friends, setFriends] = useState([]);
-const URLR = process.env.REACT_APP_URL;
-const {user:currentUser, dispatch} = useContext(AuthContext);
-const [followed, setFollowed] = useState(currentUser.following.includes(user?.id));
-
-useEffect(()=>{
-  setFollowed(currentUser.following.includes(user?.id))
-},[currentUser, user])
-useEffect(()=>{
-  const getFriends = async () =>{
-    console.log(user)
-    try {
-      const friendList = await axios.get(`${URLR}/users/friends/${user._id}`);
-      setFriends(friendList.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  getFriends();
-},[user]);
-const handleClick = async()=>{
-  try {
-    if (followed) {
-      await axios.put(`${URLR}/users/`+user._id+"/unfollow", {userId: currentUser._id});
-      dispatch({type:"UNFOLLOW", payload:user._id})
-    }else{
-      await axios.put(`${URLR}/users/`+user._id+"/follow", {userId: currentUser._id});
-      dispatch({type:"FOLLOW", payload:user._id})
-    }
-  } catch (error) {
-    console.log(error)
-  }
-  setFollowed(!followed);
-}
 
   const HomeRightbar =()=>{
   
@@ -67,7 +33,43 @@ const handleClick = async()=>{
     )
   }
   const ProfileRightbar= ()=>{
-    console.log(followed)
+    const [friends, setFriends] = useState([]);
+const URLR = process.env.REACT_APP_URL;
+const {user:currentUser, dispatch} = useContext(AuthContext);
+const [followed, setFollowed] = useState(currentUser.following.includes(user?.id));
+
+
+
+const handleClick = async()=>{
+  try {
+    if (followed) {
+      await axios.put(`${URLR}/users/`+user._id+"/unfollow", {userId: currentUser._id});
+      dispatch({type:"UNFOLLOW", payload:user._id})
+    }else{
+      await axios.put(`${URLR}/users/`+user._id+"/follow", {userId: currentUser._id});
+      dispatch({type:"FOLLOW", payload:user._id})
+    }
+  } catch (error) {
+    console.log(error)
+  }
+  setFollowed(!followed);
+}
+
+    useEffect(()=>{
+      setFollowed(currentUser.following.includes(user?.id))
+    },[currentUser, user])
+    useEffect(()=>{
+      const getFriends = async () =>{
+        console.log(user)
+        try {
+          const friendList = await axios.get(`${URLR}/users/friends/${user._id}`);
+          setFriends(friendList.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getFriends();
+    },[user._id]);
     return(<>
 
       {user.username !== currentUser.username && (
