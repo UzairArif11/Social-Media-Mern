@@ -7,6 +7,7 @@ import Rightbar from '../../components/rightbar/Rightbar'
 import axios from "axios"
 import {useParams} from "react-router"
 const Profile = () => {
+  const URLR = process.env.REACT_APP_URL;
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser]= useState({});
   const username = useParams().username;
@@ -14,7 +15,7 @@ const Profile = () => {
 
   useEffect(()=>{
     const fetchUser= async()=>{
-      const res =await axios.get(`/api/users?username=${username}`);
+      const res =await axios.get(`${URLR}/users?username=${username}`);
       
     setUser(res.data);
     }
@@ -31,7 +32,7 @@ const Profile = () => {
         <div className="profileRight col-lg-9">
         <div className="profileRightTop">
         <div className="profileCover">
-        <img src={user.coverPicture || PF+'/person/noCover.png'} alt="" className="profileCoverImg" />
+        <img src={user.coverPicture ? PF +  '/person/'+user.coverPicture : PF+'/person/noCover.png'} alt="" className="profileCoverImg" />
           <img src={user.profilePicture ? PF + '/person/'+user.profilePicture : `${PF}/person/noAvatar.png`} alt="" className="profileUserImg" />
 
         </div>

@@ -5,6 +5,7 @@ import { PermMedia, Label, Room, EmojiEmotions } from '@material-ui/icons';
 import axios from 'axios';
 const Share = () => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const URLR = process.env.REACT_APP_URL;
     const {user} = useContext(AuthContext);
    const desc = useRef()
    const [file, setFile]= useState(null);
@@ -15,20 +16,29 @@ const Share = () => {
         desc: desc.current.value
     };
     if (file) {
-        const data = new FormData();
+        let data = new FormData();
         const fileName = Date.now() + file.name;
         data.append("file", file);
         data.append("name", fileName);
-        newPost.img = fileName ;
- 
+        newPost.img = fileName;
+      
+        try {
+          await axios.post("http://localhost:8000/api/upload", data, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            params: {
+              name: fileName,
+            },
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      
     try {
-       await axios.post("http://localhost:3000/api/upload", data)
-    } catch (error) {
-        console.log(error)
-    }
-}
-    try {
-       await axios.post("/posts", newPost)
+await axios.post(`${URLR}/posts`, newPost);
+        window.location.reload()
     } catch (error) {
         
     }

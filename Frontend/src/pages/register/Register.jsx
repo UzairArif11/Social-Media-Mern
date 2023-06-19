@@ -9,7 +9,7 @@ const Login = () => {
     const password = useRef();
     const passwordAgain = useRef();
     const navigate = useNavigate();
-
+    const URLR = process.env.REACT_APP_URL;
     const handleClick=async(e)=>{
         e.preventDefault();
     if (passwordAgain.current.value !== password.current.value) {
@@ -21,7 +21,7 @@ const Login = () => {
         password: password.current.value,
        };
       try {
-       await axios.post("/api/auth/register", user)
+       await axios.post(`${URLR}/auth/register`, user)
        navigate("/")
       } catch (error) {
         console.log(error)

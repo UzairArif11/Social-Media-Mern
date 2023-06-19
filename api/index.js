@@ -31,10 +31,13 @@ app.use(morgan("common"));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/images");
+    cb(null, "public/images/post");
   },
   filename: (req, file, cb) => {
-    cb(null, req.body.name);
+  
+    console.log(req.query.name);
+  
+    cb(null, req.query.name);
   },
 });
 
@@ -42,11 +45,13 @@ const upload = multer({ storage });
 
 app.post('/api/upload', upload.single("file"), (req, res) => {
   try {
+ 
     return res.status(200).json("File upload successfully");
   } catch (error) {
     console.log(error);
   }
 });
+
 
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);

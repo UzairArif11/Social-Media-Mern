@@ -6,6 +6,7 @@ import {format  } from "timeago.js";
 import { Link } from "react-router-dom";
 import "./post.css"
 const Post = ({post}) => {
+    const URLR = process.env.REACT_APP_URL;
   const [like, setLike]= useState(post.likes.length);
   const [islike, setIsLike]= useState(false);
   const [user, setUser]= useState({});
@@ -14,7 +15,7 @@ const Post = ({post}) => {
 
   useEffect(()=>{
     const fetchUser= async()=>{
-      const res =await axios.get(`/api/users?userId=${post.userId}`);
+      const res =await axios.get(`${URLR}/users?userId=${post.userId}`);
       
     setUser(res.data);
     }
@@ -26,7 +27,7 @@ const Post = ({post}) => {
    },[currentUser._id, post.likes])
  const likeHandler=()=>{
     try {
-        axios.put('/api/posts/'+ post._id+ "/like", {userId:currentUser._id})
+        axios.put(`${URLR}/posts/`+ post._id+ "/like", {userId:currentUser._id})
     } catch (error) {
         
     }

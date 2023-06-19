@@ -6,16 +6,21 @@ import axios from "axios"
 import { AuthContext } from "../context/AuthContext";
 
 const Feed = ({className, username}) => {
+  const URLR = process.env.REACT_APP_URL;
   const [Posts,setPosts] =useState([]);
   const {user} = useContext(AuthContext);
   console.log(user._id)
    useEffect(()=>{
     const fetchPosts= async()=>{
       const res = username
-      ?await axios.get("/api/posts/profile/"+ username)
-      :await axios.get("/api/posts/timeline/"+ user._id);
+      ?await axios.get(`${URLR}/posts/profile/`+ username)
+      :await axios.get(`${URLR}/posts/timeline/`+ user._id);
       
-    setPosts(res.data);
+    setPosts(res.data.sort((p1, p2) => {
+      console.log( new Date(p1.createAt) )
+      console.log( new Date(p2.createAt) )
+      return new Date(p1.createAt) > new Date(p2.createAt) ? 1 : -1
+    }));
     }
     fetchPosts();
     
