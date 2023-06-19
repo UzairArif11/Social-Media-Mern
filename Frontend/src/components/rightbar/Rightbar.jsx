@@ -1,9 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './rightbar.css'
 import { Users } from "../../dummyData";
 import Online from '../online/Online';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { Add, Remove } from '@material-ui/icons';
+
 const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
 const Rightbar = ({className ,user}  ) => {
+const [friends, setFriends] = useState([]);
+const URLR = process.env.REACT_APP_URL;
+const {user:currentUser, dispatch} = useContext(AuthContext);
+const [followed, setFollowed] = useState(currentUser.following.includes(user?.id));
+
+useEffect(()=>{
+  setFollowed(currentUser.following.includes(user?.id))
+},[currentUser, user])
+useEffect(()=>{
+  const getFriends = async () =>{
+    console.log(user)
+    try {
+      const friendList = await axios.get(`${URLR}/users/friends/${user._id}`);
+      setFriends(friendList.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getFriends();
+},[user]);
+const handleClick = async()=>{
+  try {
+    if (followed) {
+      await axios.put(`${URLR}/users/`+user._id+"/unfollow", {userId: currentUser._id});
+      dispatch({type:"UNFOLLOW", payload:user._id})
+    }else{
+      await axios.put(`${URLR}/users/`+user._id+"/follow", {userId: currentUser._id});
+      dispatch({type:"FOLLOW", payload:user._id})
+    }
+  } catch (error) {
+    console.log(error)
+  }
+  setFollowed(!followed);
+}
 
   const HomeRightbar =()=>{
   
@@ -26,7 +67,16 @@ const Rightbar = ({className ,user}  ) => {
     )
   }
   const ProfileRightbar= ()=>{
+    console.log(followed)
     return(<>
+
+      {user.username !== currentUser.username && (
+        <button className='rightbarFollowButton' onClick={handleClick}>
+         
+          {followed? "unfollow":"Follow"}
+          {followed? <Remove/> : <Add/>}
+        </button>
+      )}  
      <div className={` ${className}`}>
      <div className=" container-fluid">
     <div className="row">
@@ -57,11 +107,16 @@ const Rightbar = ({className ,user}  ) => {
 <div className="col-lg-12 col-6">
       <h4 className="rightbarTitle">User friends</h4>
       <div className="rightbarFollowings">
-  <div className="rightbarFollowing">
-    <img src={`${PF}/person/1.jpeg`}alt="" className="rightbarFollowingImg" />
-    <span className="rightbarFollowingName">John Carter</span>
+      {friends.map((friend)=>(
+    
+        <Link key={friend._id} to={`/profile/${friend.username} `} style={{textDecoration: "none"}}>
+  <div  className="rightbarFollowing">
+    <img src={friend.profilePicture ? PF + friend.profilePicture : PF + "person/noAvatar.png"}alt="" className="rightbarFollowingImg" />
+    <span className="rightbarFollowingName">{friend.username }</span>
   </div>
- </div>
+  </Link>
+  ))}
+  </div>
 </div>
     </div>
     </div>

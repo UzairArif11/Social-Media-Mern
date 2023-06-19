@@ -1,7 +1,7 @@
 import React ,{useContext, useRef, useState} from 'react'
 import {AuthContext} from "../context/AuthContext"
 import "./share.css"
-import { PermMedia, Label, Room, EmojiEmotions } from '@material-ui/icons';
+import { PermMedia, Label, Room, EmojiEmotions, Cancel } from '@material-ui/icons';
 import axios from 'axios';
 const Share = () => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -53,6 +53,12 @@ await axios.post(`${URLR}/posts`, newPost);
                 />
                 </div>
                 <hr className="shareHr" />
+                {file && (
+                    <div className='shareImgContainer'>
+                        <img src={URL.createObjectURL(file)} alt='shareImg'/>
+                        <Cancel className='shareCancelImg' onClick={()=> setFile(null)} />
+                    </div>
+                )}
                 <form className="shareBottom" onSubmit={submitHandler}>
                     <div className="shareOptions flex-wrap ">
                         <label htmlFor='file' className="shareOption py-2">

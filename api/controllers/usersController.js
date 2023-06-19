@@ -88,6 +88,24 @@ exports.getUser = async (req, res, next) => {
           return res.status(500).json(error);
         }
     }
+    exports.getFriends = async(req, res , next)=>{
+      try {
+        const user = await User.findById(req.params.userId);
+        const friends = await Promise.all(
+          user.following.map(friendId=>{
+            return User.findById(friendId)
+          })
+        );
+        let friendList = [];
+        friends.map(friendData =>{
+          const {_id, username, profilePicture} =friendData;
+          friendList.push({_id, username, profilePicture});
+        })
+        res.status(200).json(friendList)
+      } catch (error) {
+        res.status(500).json(error)
+      }
+    }
 exports.followUser = async (req, res, next) => {
   if (req.body.userId !== req.params.id){
         try {
