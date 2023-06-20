@@ -64,3 +64,17 @@ outline: none;
     font-weight: 500;
     cursor: pointer;
 }
+.loginButton{
+    min-height: 50px;
+    height: fit-content;
+    border-radius: 10px;
+    border: none;
+    background-color: #1775ee;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+cursor: pointer;
+}
+.loginButton:disabled{
+ cursor: not-allowed;
+}

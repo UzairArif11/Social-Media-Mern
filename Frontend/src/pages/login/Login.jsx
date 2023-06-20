@@ -3,6 +3,7 @@ import './login.css'
 import { loginCall } from '../apiCalls';
 import { AuthContext } from '../../components/context/AuthContext';
 import {CircularProgress} from "@material-ui/core"
+import { Link } from 'react-router-dom';
 const Login = () => {
     const email = useRef();
     const password = useRef();
@@ -25,10 +26,14 @@ const Login = () => {
         <form className="loginBox" onSubmit={handleClick}>
             <input type="Email" placeholder='Email' className="loginInput" required ref={email}/>
             <input type="Password" placeholder='Password' className="loginInput" minLength="6" required ref={password}/>
-            <button className="loginButton" type= "submit" disabled={isFecthing}>{isFecthing ? <CircularProgress color='white' size='20px' />: "Log In"}</button>
+            <button className="loginButton" type= "submit" disabled={isFecthing}>{isFecthing ? <CircularProgress color="primary"  size='20px' />: "Log In"}</button>
             <span className="loginForget">Forget Password?</span>
             <button className="loginRegisterButton">
-            {isFecthing ? <CircularProgress color='white' size='20px' />: "Create a New Account "}
+            {isFecthing ? <CircularProgress color="primary" size='20px' />:  (
+    <Link to="/register" style={{ textDecoration: 'none', color: 'white' }}>
+      Create a New Account
+    </Link>
+  )}
             </button>
         </form>
     </div>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import './register.css'
 
 
 const Login = () => {
@@ -45,7 +46,10 @@ const Login = () => {
             <input type="Password" required ref={passwordAgain} placeholder='Password Again' className="loginInput my-2" />
             <button type='submit' className="loginButton my-2">Sign Up</button>
             <button className="loginRegisterButton my-2">
+            <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}>
                 Login into Account 
+                </Link>
+                
             </button>
         </form>
     </div>
