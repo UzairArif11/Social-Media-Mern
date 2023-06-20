@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import './rightbar.css'
 import { Users } from "../../dummyData";
 import Online from '../online/Online';
@@ -11,6 +11,7 @@ import { Add, Remove } from '@material-ui/icons';
 const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
 const Rightbar = ({className ,user}  ) => {
+ 
 
   const HomeRightbar =()=>{
   
@@ -42,6 +43,7 @@ const [followed, setFollowed] = useState(currentUser.following.includes(user?.id
 
 const handleClick = async()=>{
   try {
+    console.log(followed)
     if (followed) {
       await axios.put(`${URLR}/users/`+user._id+"/unfollow", {userId: currentUser._id});
       dispatch({type:"UNFOLLOW", payload:user._id})
@@ -52,23 +54,34 @@ const handleClick = async()=>{
   } catch (error) {
     console.log(error)
   }
-  setFollowed(!followed);
+  setFollowed(prev=> !prev);
+  console.log(followed)
 }
 
     useEffect(()=>{
       setFollowed(currentUser.following.includes(user?.id))
     },[currentUser, user])
     useEffect(()=>{
+      const cancelToken = axios.CancelToken.source();
+
       const getFriends = async () =>{
-        console.log(user)
+        // console.log(user)
         try {
-          const friendList = await axios.get(`${URLR}/users/friends/${user._id}`);
+          const friendList = await axios.get(`${URLR}/users/friends/${user._id}`, {cancelToken: cancelToken.token});
           setFriends(friendList.data);
         } catch (error) {
-          console.log(error);
+          if (axios.isCancel(error)){
+            console.log("cancelled")
+          }else{
+
+            console.log(error);
+          }
         }
       };
       getFriends();
+      return ()=> {
+        cancelToken.cancel();
+      }
     },[user._id]);
     return(<>
 

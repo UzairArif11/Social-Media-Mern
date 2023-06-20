@@ -11,19 +11,36 @@ const Feed = ({className, username}) => {
   const {user} = useContext(AuthContext);
 
    useEffect(()=>{
+    const cancelToken = axios.CancelToken.source();
     const fetchPosts= async()=>{
-      const res = username
-      ?await axios.get(`${URLR}/posts/profile/`+ username)
-      :await axios.get(`${URLR}/posts/timeline/`+ user._id);
-      
-    setPosts(res.data.sort((p1, p2) => {
- 
-      return new Date(p1.createAt) > new Date(p2.createAt) ? 1 : -1
-    }));
+  try {
+    const res = username
+    ?await axios.get(`${URLR}/posts/profile/`+ username , {cancelToken: cancelToken.token})
+    :await axios.get(`${URLR}/posts/timeline/`+ user._id , {cancelToken: cancelToken.token});
+    
+  setPosts(res.data.sort((p1, p2) => {
+
+    return new Date(p1.createAt) > new Date(p2.createAt) ? 1 : -1
+  }));
+    
+  } catch (error) {
+    if (axios.isCancel(error)){
+      console.log("cancelled")
+    }else{
+
+      console.log(error);
+    }
+  }
     }
     fetchPosts();
-    console.log(username === user.username )
+    return ()=> {
+      cancelToken.cancel();
+    }
    },[username,user._id])
+
+
+
+   
   return (
     <div className={`${className}`}>
 

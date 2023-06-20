@@ -40,7 +40,7 @@ const Share = () => {
 await axios.post(`${URLR}/posts`, newPost);
         window.location.reload()
     } catch (error) {
-        
+            console.log((error))
     }
    }
     return (

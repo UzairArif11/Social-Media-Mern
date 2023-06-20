@@ -14,13 +14,27 @@ const Profile = () => {
 
 
   useEffect(()=>{
+    const cancelToken = axios.CancelToken.source();
     const fetchUser= async()=>{
-      const res =await axios.get(`${URLR}/users?username=${username}`);
+      try {
+        const res =await axios.get(`${URLR}/users?username=${username}`, {cancelToken: cancelToken.token});
+        setUser(res.data);
+      } catch (error) {
+        if (axios.isCancel(error)){
+          console.log("cancelled")
+        }else{
+
+          console.log(error);
+        }
+      }
+   
       
-    setUser(res.data);
+ 
     }
     fetchUser();
-    
+    return ()=> {
+      cancelToken.cancel();
+    }
    },[username])
   return (
     <><div className="container-fluid position-fixed z-3">
@@ -45,7 +59,7 @@ const Profile = () => {
         <div className=" container-fluid">
     <div className="row">
         <Feed className="col-lg-9" username={username}/>
-        <Rightbar className="col-lg-3" user={user}/>
+        {Object.keys(user).length !== 0 && <Rightbar className="col-lg-3" user={user} />}
         </div></div>
     </div></div></div></div>
     </>

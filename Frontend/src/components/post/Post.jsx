@@ -14,14 +14,30 @@ const Post = ({post}) => {
   const {user:currentUser} = useContext(AuthContext);
 
   useEffect(()=>{
+    const cancelToken = axios.CancelToken.source();
     const fetchUser= async()=>{
-      const res =await axios.get(`${URLR}/users?userId=${post.userId}`);
+        try {
+            const res =await axios.get(`${URLR}/users?userId=${post.userId}`, {cancelToken: cancelToken.token});
       
-    setUser(res.data);
-    }
+            setUser(res.data);
+        } catch (error) {
+            if (axios.isCancel(error)){
+                console.log("cancelled")
+              }else{
+    
+                console.log(error);
+              }
+        }
+     
+    };
     fetchUser();
     
+    return ()=> {
+        cancelToken.cancel();
+      }
    },[post.userId])
+
+
    useEffect(() =>{
     setIsLike(post.likes.includes(currentUser._id));
    },[currentUser._id, post.likes])
